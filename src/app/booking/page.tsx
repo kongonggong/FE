@@ -81,6 +81,11 @@ export default function Reservations() {
   };
 
   const handleBooking = async () => {
+    if (!token) {
+      alert("No token found. Please log in.");
+      return;
+    }
+  
     try {
       const response = await fetch("http://localhost:5003/api/bookings", {
         method: "POST",
@@ -96,7 +101,7 @@ export default function Reservations() {
           userId: userId || "",
         }),
       });
-
+  
       const result = await response.json();
       console.log("Booking Response:", result);
       if (!response.ok) {
@@ -109,6 +114,7 @@ export default function Reservations() {
       alert("Failed to complete booking. Try again.");
     }
   };
+  
 
   return (
     <main className="w-[100%] flex flex-col items-center space-y-4">
